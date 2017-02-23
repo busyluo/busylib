@@ -11,7 +11,10 @@ class Poller
   DISABLE_COPY(Poller)
 public:
   Poller();
-  virtual void regEvent(Event *ev) = 0;
-  virtual void unregEvent(Event *ev) = 0;
+  virtual void addEvent(Event *ev) = 0;
+  virtual void delEvent(Event *ev) = 0;
+  virtual void modEvent(Event *ev) = 0;
+
+  virtual void pollOnce(int timeoutMs) = 0;
 };
 }

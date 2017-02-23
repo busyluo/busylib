@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
 project(busynet)
 AUX_SOURCE_DIRECTORY(. LIB_SRCS)
@@ -9,3 +9,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
+
+#set(CMAKE_CXX_STANDARD 11)
