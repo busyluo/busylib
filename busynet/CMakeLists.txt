@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 2.8)
+
+project(busynet)
+AUX_SOURCE_DIRECTORY(. LIB_SRCS)
+ADD_LIBRARY(${PROJECT_NAME} STATIC  ${LIB_SRCS})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)

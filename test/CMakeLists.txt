@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 2.8)
+
+project(libtest)
+AUX_SOURCE_DIRECTORY(. SRC_LIST)
+ADD_EXECUTABLE(${PROJECT_NAME}  ${SRC_LIST})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)
+
+INCLUDE_DIRECTORIES(..)
+target_link_libraries(${PROJECT_NAME} busynet)
