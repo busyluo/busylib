@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <time.h>
 
+#include <busynet/logger.h>
+
 using namespace busynet;
 
 int main(int argc, char *argv[])
@@ -22,12 +24,13 @@ int main(int argc, char *argv[])
   ::timerfd_settime(tfd, 0, &howlong, NULL);
 
   Event ev(tfd);
-  loop.addEvent(ev);
+  loop.addEvent(&ev);
   ev.onRead([&](){
       std::cout << "OK" <<std::endl;
       loop.quit();
   });
 
+  logDebug() << "OKsss";
 
   loop.loop();
   return 0;

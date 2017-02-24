@@ -8,10 +8,17 @@ namespace
 // thread_local busynet::EventLoop threadLoop;
 }
 
-EventLoop::EventLoop() : poller_(new PollerEpoll) {}
-void EventLoop::loop()
+EventLoop::EventLoop() : poller_(new PollerEpoll),exitAtNextLoop_(false) {}
+
+void EventLoop::loop() {
+    exitAtNextLoop_ =false;
+  while (!exitAtNextLoop_)
+    poller_->pollOnce(10000);
+  std::cout << "out of poll";
+}
+
+void EventLoop::addEvent(Event *ev)
 {
-  while (!exitAtNextLoop_) poller_->pollOnce(1000);
-  poller_->pollOnce(0);
+    poller_->addEvent(ev);
 }
 }

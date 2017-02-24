@@ -1,13 +1,13 @@
 #pragma once
 
-#include <poll.h>
+#include <sys/epoll.h>
 
 #include "common.h"
 #include "poller.h"
 
 namespace busynet
 {
-constexpr int kMaxEvents = 1000;
+const int kMaxEvents = 1000;
 
 class PollerEpoll : public Poller
 {
@@ -19,7 +19,6 @@ public:
   void modEvent(Event *ev) override;
 
   void pollOnce(int timeoutMs) override;
-
 private:
   int epollfd_;
   struct epoll_event epollEvents_[kMaxEvents];

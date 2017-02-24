@@ -25,6 +25,6 @@ typedef i64 int64_t;
 
 
 #define DISABLE_COPY(Class)      \
-  Class(const Class &) = delete; \
-  Class &operator=(const Class &) = delete;
+  Class(const Class &); \
+  Class &operator=(const Class &);
 }
