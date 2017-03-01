@@ -1,5 +1,6 @@
 #include "eventloop.h"
 #include "poller_epoll.h"
+#include "logger.h"
 
 namespace busynet
 {
@@ -11,7 +12,7 @@ namespace
 EventLoop::EventLoop() : poller_(new PollerEpoll),exitAtNextLoop_(false) {}
 
 void EventLoop::loop() {
-    exitAtNextLoop_ =false;
+  exitAtNextLoop_ = false;
   while (!exitAtNextLoop_)
     poller_->pollOnce(10000);
   std::cout << "out of poll";

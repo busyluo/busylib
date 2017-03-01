@@ -13,25 +13,22 @@ using namespace busynet;
 
 int main(int argc, char *argv[])
 {
-  int fd = 0;
-  EventLoop loop;
-
   int tfd = ::timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
-  std::cout << "timerfd: " << tfd <<std::endl;
+
   struct itimerspec howlong;
   bzero(&howlong, sizeof howlong);
   howlong.it_value.tv_sec = 2;
   ::timerfd_settime(tfd, 0, &howlong, NULL);
 
+  EventLoop loop;
   Event ev(tfd);
-  loop.addEvent(&ev);
+
   ev.onRead([&](){
-      std::cout << "OK" <<std::endl;
-      loop.quit();
+    logDebug() << "OK\n";
+    loop.quit();
   });
 
-  logDebug() << "OKsss";
-
+  loop.addEvent(&ev);
   loop.loop();
   return 0;
 }

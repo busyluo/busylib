@@ -7,15 +7,13 @@
 
 #include "common.h"
 #include "event.h"
+#include "poller.h"
 
 namespace busynet
 {
-class Poller;
-
 typedef std::function<void()> Task;
 class EventLoop
 {
-
   EventLoop(const EventLoop &);
 public:
   EventLoop();
@@ -26,10 +24,9 @@ public:
 
   void runInLoop(const Task& task);
 private:
-  std::shared_ptr<Poller> poller_;
+  std::unique_ptr<Poller> poller_;
   std::vector<Task> pendingTasks_; //等待处理的任务
 
   std::atomic<bool> exitAtNextLoop_;
 };
-// void startLoop();
 }
