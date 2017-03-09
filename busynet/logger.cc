@@ -10,15 +10,30 @@ void defaultOutput(const char *str, int len) {
     fwrite(str, 1, len, stdout);
 }
 
-Logger::Logger(const char *file, int line, Logger::LogLevel level)
-    : level_(LOG_INFO)
+Logger::LogLevel initLogLevel()
+{
+  const char * const value = ::getenv("BUSYNET_LOG_DEBUG");
+  if(!value || !*value) {
+    return Logger::LOG_INFO;
+  }
+  return Logger::LOG_DEBUG;
+}
+
+Logger::LogLevel Logger::globalLevel_ = initLogLevel();
+Logger::Logger(const char *file, int line, const char *func, Logger::LogLevel level)
+    : level_(level)
 {
   outputFunc_ = defaultOutput;
 }
 
 Logger::~Logger()
 {
-    outputFunc_(stream_.data(), stream_.length());
+  outputFunc_(stream_.data(), stream_.length());
+}
+
+void Logger::stream(const char *msg, ...) const
+{
+
 }
 
 template<int N>
@@ -33,7 +48,7 @@ LogStream &LogStream::operator <<(const char *str)
   if(str != nullptr)
     buffer_.append(str, strlen(str));
   else
-    buffer_.append("(nullptr)", 9);
+    buffer_.append("(nullptr)", 10);
   return *this;
 }
 
