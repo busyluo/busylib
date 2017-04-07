@@ -1,11 +1,11 @@
 #include <busynet/busynet.h>
 #include <busynet/event.h>
 
-#include <iostream>
-#include <sys/timerfd.h>
-#include <cstring>
 #include <stdio.h>
+#include <sys/timerfd.h>
 #include <time.h>
+#include <cstring>
+#include <iostream>
 
 #include <busynet/logger.h>
 
@@ -23,8 +23,9 @@ int main(int argc, char *argv[])
   EventLoop loop;
   Event ev(tfd);
 
-  ev.onRead([&](){
-    logDebug() << "OK\n";
+  ev.onRead([&]() {
+    debug() << "OK";
+    fatalif(true, "A number: %d", 1);
     loop.quit();
   });
 

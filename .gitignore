@@ -86,4 +86,4 @@ Thumbs.db
 *.app
 *.out
 build
-
+CMakeLists.txt.*
