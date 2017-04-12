@@ -5,15 +5,30 @@
 
 #include "logger.h"
 
-#define LOG_BUFFER_SIZE (1024 * 4)
+#define LOG_BUFFER_SIZE (1024 * 1)
 #define BIG_LOG_BUFFER_SIZE (LOG_BUFFER_SIZE * 3)
 
-namespace busynet
+namespace busylib
 {
-void defaultOutput(const char *str, int len) { fwrite(str, 1, len, stdout); }
+#if defined(__x86_64__) || defined(__x86_32__)
+const char *LOG_LEVEL_STRING[Logger::LOG_LEVEL_NUM] = {
+    "\033[40;31;1m[FATAL  ]\033[0m: ", "\033[40;35;1m[ERROR  ]\033[0m: ",
+    "\033[40;33;1m[WARNING]\033[0m: ", "\033[40;32;1m[INFO   ]\033[0m: ",
+    "\033[40;36;1m[DEBUG  ]\033[0m: ", "\033[40;37;1m[TRACE  ]\033[0m: "};
+#else
+const char *LOG_LEVEL_STRING[Logger::LOG_LEVEL_NUM] = {
+    "[FATAL  ]: ", "[ERROR  ]: ", "[WARNING]: ",
+    "[INFO   ]: ", "[DEBUG  ]: ", "[TRACE  ]: "};
+
+#endif
+void defaultOutput(const char *str, int len)
+{
+  fwrite(str, 1, len, stdout);
+  fflush(stdout);
+}
 Logger::LogLevel initLogLevel()
 {
-  const char *const value = ::getenv("BUSYNET_LOG_DEBUG");
+  const char *const value = ::getenv("BUSYLIB_LOG_DEBUG");
   if (!value || !*value) {
     return Logger::LOG_INFO;
   }
@@ -26,6 +41,8 @@ Logger::Logger(const char *file, int line, const char *func,
     : level_(level)
 {
   outputFunc_ = defaultOutput;
+
+  stream_ << LOG_LEVEL_STRING[level];
 }
 
 Logger::~Logger()
@@ -66,5 +83,10 @@ LogStream &LogStream::operator<<(const char *str)
   else
     buffer_.append("(nullptr)", 10);
   return *this;
+}
+
+LogStream &LogStream::operator<<(const std::string &str)
+{
+  operator<<(str.c_str());
 }
 }

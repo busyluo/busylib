@@ -1,6 +1,6 @@
 #include "poller.h"
 
-namespace busynet
+namespace busylib
 {
 Poller::Poller() {}
 }

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(busynet_proj)
+project(busylib_proj)
 
 #aux_source_directory(. SRC_LIST)
 #add_executable(${PROJECT_NAME}  ${SRC_LIST})
@@ -11,5 +11,5 @@ project(busynet_proj)
 #    CXX_EXTENSIONS NO
 #)
 
-add_subdirectory("busynet")
+add_subdirectory("busylib")
 add_subdirectory("test")

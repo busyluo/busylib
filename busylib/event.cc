@@ -2,6 +2,6 @@
 #include "eventloop.h"
 #include <sys/epoll.h>
 
-namespace busynet {
+namespace busylib {
 Event::Event(int fd) : fd_(fd) { events_ = EPOLLIN; }
 }

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace busynet
+namespace busylib
 {
 // Rust language Primitive Types
 typedef signed char i8;

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstring>
 
-namespace busynet
+namespace busylib
 {
 PollerEpoll::PollerEpoll() {
     epollfd_ = epoll_create1(EPOLL_CLOEXEC);

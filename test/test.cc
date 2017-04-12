@@ -1,15 +1,14 @@
-#include <busynet/busynet.h>
-#include <busynet/event.h>
-
-#include <stdio.h>
+#include <cstdio>
 #include <sys/timerfd.h>
-#include <time.h>
+#include <ctime>
 #include <cstring>
 #include <iostream>
 
-#include <busynet/logger.h>
+#include <busylib/busylib.h>
+#include <busylib/event.h>
+#include <busylib/logger.h>
 
-using namespace busynet;
+using namespace busylib;
 
 int main(int argc, char *argv[])
 {

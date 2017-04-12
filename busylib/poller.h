@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-namespace busynet
+namespace busylib
 {
 class Event;
 

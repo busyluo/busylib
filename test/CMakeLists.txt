@@ -11,4 +11,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 INCLUDE_DIRECTORIES(..)
-target_link_libraries(${PROJECT_NAME} busynet)
+target_link_libraries(${PROJECT_NAME} busylib)

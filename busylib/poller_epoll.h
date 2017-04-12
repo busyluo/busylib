@@ -5,7 +5,7 @@
 #include "common.h"
 #include "poller.h"
 
-namespace busynet
+namespace busylib
 {
 const int kMaxEvents = 1000;
 

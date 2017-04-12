@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(busynet)
+project(busylib)
 AUX_SOURCE_DIRECTORY(. LIB_SRCS)
 ADD_LIBRARY(${PROJECT_NAME} STATIC  ${LIB_SRCS})
 
