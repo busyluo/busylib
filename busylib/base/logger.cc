@@ -10,17 +10,11 @@
 
 namespace busylib
 {
-#if defined(__x86_64__) || defined(__x86_32__)
-const char *LOG_LEVEL_STRING[Logger::LOG_LEVEL_NUM] = {
-    "\033[40;31;1m[FATAL  ]\033[0m: ", "\033[40;35;1m[ERROR  ]\033[0m: ",
-    "\033[40;33;1m[WARNING]\033[0m: ", "\033[40;32;1m[INFO   ]\033[0m: ",
-    "\033[40;36;1m[DEBUG  ]\033[0m: ", "\033[40;37;1m[TRACE  ]\033[0m: "};
-#else
-const char *LOG_LEVEL_STRING[Logger::LOG_LEVEL_NUM] = {
-    "[FATAL  ]: ", "[ERROR  ]: ", "[WARNING]: ",
-    "[INFO   ]: ", "[DEBUG  ]: ", "[TRACE  ]: "};
+static const char *LOG_LEVEL_STRING[Logger::LOG_LEVEL_NUM] = {
+    "\033[40;31;1m[FATAL]\033[0m: ", "\033[40;35;1m[ERROR]\033[0m: ",
+    "\033[40;33;1m[WARN*]\033[0m: ", "\033[40;32;1m[INFO ]\033[49;32m: ",
+    "\033[40;36;1m[DEBUG]\033[0m: ", "\033[40;37;1m[TRACE]\033[0m: "};
 
-#endif
 void defaultOutput(const char *str, int len)
 {
   fwrite(str, 1, len, stdout);
@@ -47,7 +41,7 @@ Logger::Logger(const char *file, int line, const char *func,
 
 Logger::~Logger()
 {
-  stream_ << "\n";
+  stream_ << "\033[0m\n";
   outputFunc_(stream_.data(), stream_.length());
 }
 
@@ -62,7 +56,7 @@ LogStream &Logger::stream(const char *fmt, ...)
     rc = vsnprintf(newBuffer, BIG_LOG_BUFFER_SIZE, fmt, ap);
     assert(rc != -1 && rc < LOG_BUFFER_SIZE);
     stream_ << newBuffer;
-    delete newBuffer;
+    delete[] newBuffer;
   } else {
     stream_ << buffer;
   }
@@ -72,13 +66,24 @@ LogStream &Logger::stream(const char *fmt, ...)
 template <int N>
 void Buffer<N>::append(const char *data, int len)
 {
+  // assert(length() + len < N);
+  if (length() + len >= N) {
+    len = N - length();
+  }
   memcpy(ptr_, data, len);
   ptr_ += len;
 }
 
+LogStream &LogStream::operator<<(const i32 n)
+{
+    char num_buf[12];
+    sprintf(num_buf, "%d", n);
+    buffer_.append(num_buf, strlen(num_buf));
+}
+
 LogStream &LogStream::operator<<(const char *str)
 {
-  if (str != nullptr)
+  if (str != NULL)
     buffer_.append(str, strlen(str));
   else
     buffer_.append("(nullptr)", 10);

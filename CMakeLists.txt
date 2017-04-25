@@ -1,15 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
+set(CMAKE_CXX_STANDARD 11)
 
-project(busylib_proj)
+project(busylib)
 
 #aux_source_directory(. SRC_LIST)
 #add_executable(${PROJECT_NAME}  ${SRC_LIST})
 
-#set_target_properties(${PROJECT_NAME} PROPERTIES
-#    CXX_STANDARD 11
-#    CXX_STANDARD_REQUIRED YES
-#    CXX_EXTENSIONS NO
-#)
+include_directories(${PROJECT_SOURCE_DIR})
 
 add_subdirectory("busylib")
 add_subdirectory("test")

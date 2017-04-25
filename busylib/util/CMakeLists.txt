@@ -1,0 +1,6 @@
+
+AUX_SOURCE_DIRECTORY(. LIB_SRCS)
+ADD_LIBRARY(busylib_util STATIC  ${LIB_SRCS}
+    unit_test.h)
+
+INCLUDE_DIRECTORIES(../base)

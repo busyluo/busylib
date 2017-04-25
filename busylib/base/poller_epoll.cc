@@ -1,11 +1,11 @@
 #include <poll.h>
 #include <sys/epoll.h>
 
-#include "event.h"
-#include "poller_epoll.h"
-
 #include <iostream>
 #include <cstring>
+
+#include "event.h"
+#include "poller_epoll.h"
 
 namespace busylib
 {

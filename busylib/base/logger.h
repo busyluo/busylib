@@ -37,6 +37,7 @@ class Buffer
 class LogStream
 {
  public:
+  LogStream &operator<<(const i32 n);
   LogStream &operator<<(const char *str);
   LogStream &operator<<(const std::string &str);
 
@@ -84,22 +85,22 @@ class Logger
 #define LOG_LEVEL Logger::level()
 #endif
 
-#define logTrace                         \
+#define logTrace                      \
   if (Logger::LOG_TRACE <= LOG_LEVEL) \
   Logger(__FILE__, __LINE__, __PRETTY_FUNCTION__, Logger::LOG_TRACE).stream
-#define logDebug                         \
+#define logDebug                      \
   if (Logger::LOG_DEBUG <= LOG_LEVEL) \
   Logger(__FILE__, __LINE__, __PRETTY_FUNCTION__, Logger::LOG_DEBUG).stream
-#define logInfo                         \
+#define logInfo                      \
   if (Logger::LOG_INFO <= LOG_LEVEL) \
   Logger(__FILE__, __LINE__, __PRETTY_FUNCTION__, Logger::LOG_INFO).stream
-#define logWarning                         \
+#define logWarning                      \
   if (Logger::LOG_WARNING <= LOG_LEVEL) \
   Logger(__FILE__, __LINE__, __PRETTY_FUNCTION__, Logger::LOG_WARNING).stream
-#define logError                         \
+#define logError                      \
   if (Logger::LOG_ERROR <= LOG_LEVEL) \
   Logger(__FILE__, __LINE__, __PRETTY_FUNCTION__, Logger::LOG_ERROR).stream
-#define logFatal                         \
+#define logFatal                      \
   if (Logger::LOG_FATAL <= LOG_LEVEL) \
   Logger(__FILE__, __LINE__, __PRETTY_FUNCTION__, Logger::LOG_FATAL).stream
 

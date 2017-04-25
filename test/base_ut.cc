@@ -1,12 +1,11 @@
-#include <cstdio>
 #include <sys/timerfd.h>
-#include <ctime>
+
+#include <cstdio>
 #include <cstring>
+#include <ctime>
 #include <iostream>
 
 #include <busylib/busylib.h>
-#include <busylib/event.h>
-#include <busylib/logger.h>
 
 using namespace busylib;
 
@@ -23,7 +22,7 @@ int main(int argc, char *argv[])
   Event ev(tfd);
 
   ev.onRead([&]() {
-    debug() << "OK";
+    logDebug() << "OK";
     fatalif(true, "A number: %d", 1);
     loop.quit();
   });

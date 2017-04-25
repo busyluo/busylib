@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.1)
+set(CMAKE_CXX_STANDARD 11)
 
 project(busylib)
-AUX_SOURCE_DIRECTORY(. LIB_SRCS)
-ADD_LIBRARY(${PROJECT_NAME} STATIC  ${LIB_SRCS})
+#AUX_SOURCE_DIRECTORY(. LIB_SRCS)
+#ADD_LIBRARY(${PROJECT_NAME} STATIC  ${LIB_SRCS})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 11
-    CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO
-)
+INCLUDE_DIRECTORIES(.)
 
-#set(CMAKE_CXX_STANDARD 11)
+add_subdirectory("base")
+add_subdirectory("net")
+add_subdirectory("util")
+add_subdirectory("3rdparty")
