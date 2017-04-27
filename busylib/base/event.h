@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "common.h"
+#include "poller.h"
 
 namespace busylib
 {
@@ -11,8 +12,9 @@ class Event
 {
   DISABLE_COPY(Event)
   typedef std::function<void()> CallBack;
+
 public:
-  Event(int fd);
+  Event(int fd, int ev = kReadEvent);
 
   //设置事件回调
   void onRead(const CallBack &cb) { readCallback_ = cb; }
@@ -20,12 +22,16 @@ public:
   void onRead(const CallBack &&cb) { readCallback_ = std::move(cb); }
   void onWrite(const CallBack &&cb) { writeCallback_ = std::move(cb); }
 
+
+  int fd() const { return fd_; }
+  uint32_t events() const { return events_; }
+private:
   //处理事件，由poller调用
   void handleRead() { readCallback_(); }
   void handleWrite() { writeCallback_(); }
 
-  int fd() const { return fd_; }
-  uint32_t events() const { return events_; }
+  friend class PollerEpoll;
+
 private:
   int fd_;
   uint32_t events_;

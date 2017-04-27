@@ -1,10 +1,15 @@
 #pragma once
 
+#include <sys/poll.h>
+
 #include "common.h"
 
 namespace busylib
 {
 class Event;
+
+constexpr int kReadEvent = POLLIN;
+constexpr int kWriteEvent = POLLOUT;
 
 class Poller
 {
