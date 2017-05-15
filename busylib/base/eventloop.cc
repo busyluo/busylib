@@ -31,7 +31,7 @@ EventLoop::EventLoop()
 {
   wakeupEv_.onRead([this]() {
     u64 buf;
-    ::read(this->wakeupEv_.fd(), &buf, sizeof u64);
+    ::read(this->wakeupEv_.fd(), &buf, sizeof(u64));
     runPendingTasks();
   });
   poller_->addEvent(&wakeupEv_);
